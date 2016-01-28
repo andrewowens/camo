@@ -10,7 +10,7 @@ CYTHON_CMD=g++ -shared -pthread -fPIC -fwrapv -O2 -Wall -fno-strict-aliasing  `p
 #-I `python-config --prefix`/lib/python2.7/site-packages/numpy/core/include
 
 mrf : mrf.pyx mrf.cc mrf.h
-	g++ -c -O3 -fPIC -I ../lib/gco-3.0 mrf.cc $(GCO_FILES) 
+	g++ -c -O3 -fPIC -I ../lib/gco-3.0 -DGCO_ENERGYTYPE=float mrf.cc $(GCO_FILES)
 	cython mrf.pyx -o mrf_.c
 	$(CYTHON_CMD) mrf_.c mrf.o GCoptimization.o LinkedBlockList.o graph.o maxflow.o -o mrf.so
 
